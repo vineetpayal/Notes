@@ -94,7 +94,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     }
 
-    //TODO fix the delete all function
     private fun deleteAll() {
         for (i in 0 until notes.size) {
             try {
