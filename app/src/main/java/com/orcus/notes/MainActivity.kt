@@ -1,35 +1,44 @@
 package com.orcus.notes
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.orcus.notes.lifecycle.NotesViewModel
-import com.orcus.notes.utils.NoteApplication
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.orcus.notes.ui.HomeFragment
+
+private const val TAG = "mainActivity"
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var  notesViewModel: NotesViewModel
 
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+        navController = navHostFragment.findNavController()
 
-        notesViewModel = ViewModelProviders.of(this).get(NotesViewModel::class.java)
-        notesViewModel.allNotes?.observe(this, Observer {
+        setupActionBarWithNavController(navController)
 
-            val note = it[0]
-
-            noteName.text = note.content
-
-        })
-
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            if (arguments?.getInt("requestCode") == HomeFragment.EDIT_NOTE_REQUEST_CODE) {
+                supportActionBar?.title = "Edit note"
+            } else if (arguments?.getInt("requestCode") == HomeFragment.ADD_NOTE_REQUEST_CODE) {
+                supportActionBar?.title = "Add note"
+            } else {
+                supportActionBar?.title = "Home"
+            }
+        }
 
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
 }

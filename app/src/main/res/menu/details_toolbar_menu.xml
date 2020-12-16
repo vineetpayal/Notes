@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/save_note_btn"
+        android:icon="@drawable/ic_baseline_check_24"
+        android:title="Save"
+        android:visible="true"
+        app:showAsAction="ifRoom"
+        tool:visible="true" />
+
+
+    <item
+        android:id="@+id/share_note_btn"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="Share"
+        app:showAsAction="ifRoom" />
+
+</menu>

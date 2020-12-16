@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 class Repository(private val dao: NoteDao) {
 
-    val allNotes: Flow<ArrayList<Note>> = dao.getAllNotes()
+    val allNotes: LiveData<List<Note>> = dao.getAllNotes()
 
 
     @Suppress("RedundantSuspendModifier")
