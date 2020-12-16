@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    tools:context=".ui.HomeFragment"
+    android:layout_height="match_parent"
     android:background="#F3F3F3"
-    android:layout_height="match_parent">
+    tools:context=".ui.HomeFragment">
 
 
+    <!--recycler view to show the notes -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notesRecyclerView"
         android:layout_width="match_parent"
@@ -16,6 +17,7 @@
         app:spanCount="2"
         tools:listitem="@layout/item_note" />
 
+    <!--button to add new notes -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/addNoteButton"
         android:layout_width="wrap_content"
@@ -29,11 +31,12 @@
         app:icon="@drawable/ic_baseline_add_24"
         app:iconTint="@color/white" />
 
+    <!--Text to show when notes list is empty i.e there is not any note saved yet -->
     <TextView
         android:id="@+id/tv_no_notes_saved"
-        android:layout_centerInParent="true"
-        android:text="Click the button below to add notes."
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Click the button below to add notes." />
 
 </RelativeLayout>

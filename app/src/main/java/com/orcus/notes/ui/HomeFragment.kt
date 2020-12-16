@@ -41,12 +41,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //This method enables the options menu in specifically in this fragment
         setHasOptionsMenu(true)
 
         setUpRecyclerView()
 
 
-
+        //Opening the already saved note
         adapter.setOnItemClickListener(object : NoteAdapter.OnItemClick {
             override fun setOnItemClickListener(note: Note, position: Int) {
                 val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
@@ -80,12 +81,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 tv_no_notes_saved?.visibility = View.GONE
             }
 
+            //Clearing the adapter to prevent the duplication of the items data is changed in the view model
             notes.clear()
             adapter.notifyDataSetChanged()
 
 
+            //Adding the new data to the notes list
             for (i in it.indices) {
-
                 notes.add(it[i])
                 adapter.notifyItemInserted(i)
             }
@@ -97,13 +99,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun deleteAll() {
         for (i in 0 until notes.size) {
             try {
-                val note = notes[i]
                 notes.removeAt(i)
                 //notesViewModel.delete(note)
                 adapter.notifyItemRemoved(i)
 
             } catch (e: Exception) {
-                Log.d(TAG, "deleteAll: ${e.message} and  the current i = $i")
+                Log.d(TAG, "deleteAll: ${e.message}")
 
             }
 
@@ -116,10 +117,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         adapter = NoteAdapter(context, notes)
         notesRecyclerView.adapter = adapter
 
+        //Setting up the touchHelpListener to handle the recyclerView swipe events
         val itemTouchHelper = ItemTouchHelper(simpleCallback())
         itemTouchHelper.attachToRecyclerView(notesRecyclerView)
     }
 
+    //Inflating the menu in toolbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.home_toolbar_menu, menu)
@@ -128,8 +131,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
+            //Delete all button in options menu
             R.id.delete_all_btn -> {
-
                 deleteAll()
             }
         }
@@ -138,6 +141,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
 
+    //The callback for handling the recyclerView swipe
     private fun simpleCallback(): ItemTouchHelper.SimpleCallback =
         (object :
             ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT and ItemTouchHelper.RIGHT) {

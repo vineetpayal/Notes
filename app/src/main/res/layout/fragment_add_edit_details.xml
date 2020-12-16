@@ -3,17 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tool="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.AddEditDetailsFragment">
 
+    <!--Taking the user input through edittext -->
+
     <EditText
-        android:padding="16dp"
         android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/et_background"
         android:gravity="start"
-        android:textCursorDrawable="@drawable/et_cursor_view"
-        android:textColor="@color/black" />
+        android:padding="16dp"
+        android:textColor="@color/black"
+        android:textCursorDrawable="@drawable/et_cursor_view" />
 
 </RelativeLayout>

@@ -50,6 +50,8 @@ class NotesViewModel(var repository: Repository) : ViewModel() {
         isNoteRemoved = true
     }
 
+    //If we wanna pass the arguments through our viewmodel we hava to use ViewModelFactory like this
+    //We cannot pass arguments through viewModel constructor using 'ViewModelProviders'
     class NotesViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(NotesViewModel::class.java)) {

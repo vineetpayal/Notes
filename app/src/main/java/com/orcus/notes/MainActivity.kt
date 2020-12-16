@@ -19,24 +19,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //getting the navController for the navigation
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
         navController = navHostFragment.findNavController()
 
         setupActionBarWithNavController(navController)
 
+        //Setting the toolbar title.
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            if (arguments?.getInt("requestCode") == HomeFragment.EDIT_NOTE_REQUEST_CODE) {
-                supportActionBar?.title = "Edit note"
-            } else if (arguments?.getInt("requestCode") == HomeFragment.ADD_NOTE_REQUEST_CODE) {
-                supportActionBar?.title = "Add note"
-            } else {
-                supportActionBar?.title = "Home"
+            when {
+                arguments?.getInt("requestCode") == HomeFragment.EDIT_NOTE_REQUEST_CODE -> {
+                    supportActionBar?.title = "Edit note"
+                }
+                arguments?.getInt("requestCode") == HomeFragment.ADD_NOTE_REQUEST_CODE -> {
+                    supportActionBar?.title = "Add note"
+                }
+                else -> {
+                    supportActionBar?.title = "Home"
+                }
             }
         }
 
     }
 
+    //This method enabled the back(or up) button on the toolbar
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }

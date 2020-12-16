@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.orcus.notes">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!--Add :
+     android:name=".utils.NoteApplication"
+     This wraps the application with our extended class so that we can get the instance of the database and the repository-->
     <application
         android:name=".utils.NoteApplication"
         android:allowBackup="true"

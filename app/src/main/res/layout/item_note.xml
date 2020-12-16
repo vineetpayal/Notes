@@ -7,6 +7,10 @@
     android:layout_margin="8dp"
     android:orientation="vertical">
 
+
+    <!--Items's layout that will be static i.e will not move if
+    user swipes to delete the icon this layout will show a delete text
+    and delete icon-->
     <RelativeLayout
         android:id="@+id/background_view"
         android:layout_width="match_parent"
@@ -16,6 +20,11 @@
         android:elevation="0dp"
         android:padding="16dp">
 
+        <!--Showing two different layout for two columns to
+        show the user the icon and text on correct side-->
+
+        <!--This layout will be visible for the items in left
+         column (our recyclerView has 2 columns)-->
         <RelativeLayout
             android:id="@+id/rightToLeftSwipeView"
             android:layout_width="match_parent"
@@ -23,6 +32,7 @@
             android:gravity="end|center_vertical"
             android:visibility="gone">
 
+            <!--TextView for the 'delete' text -->
             <TextView
                 android:id="@+id/delete_view"
                 android:layout_width="wrap_content"
@@ -33,6 +43,7 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
+            <!--ImageView for the delete icon -->
             <ImageView
                 android:id="@+id/delete_icon"
                 android:layout_width="wrap_content"
@@ -45,28 +56,32 @@
 
         </RelativeLayout>
 
+        <!--This layout will be visible for the items in right
+         column (our recyclerView has 2 columns)-->
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/leftToRightSwipeView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="start|center_vertical">
+            android:gravity="start|center_vertical"
+            android:visibility="gone">
 
+            <!--ImageView for the delete icon -->
             <ImageView
-                android:layout_margin="16dp"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
                 android:id="@+id/right_delete_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="16dp"
                 android:src="@drawable/ic_baseline_delete_sweep_24" />
 
+            <!--TextView for the 'delete' text -->
             <TextView
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/right_delete_icon"
                 android:id="@+id/right_delete_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/right_delete_icon"
                 android:text="delete"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -76,6 +91,8 @@
 
 
     </RelativeLayout>
+
+    <!--Item's foreground that user will drag or swipe -->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/foreground_view"
@@ -92,17 +109,19 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <!--TextView for showing the note's content -->
             <TextView
-                android:maxLines="10"
-                android:ellipsize="end"
                 android:id="@+id/contentView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:ellipsize="end"
+                android:maxLines="10"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 tool:text="To make the pizza and eat it and then sleep" />
 
+            <!--For showing the time the note was created -->
             <TextView
                 android:id="@+id/timeCreated"
                 android:layout_width="wrap_content"

@@ -24,7 +24,9 @@ import kotlinx.android.synthetic.main.fragment_add_edit_details.*
 class AddEditDetailsFragment : Fragment(R.layout.fragment_add_edit_details) {
 
     val args: AddEditDetailsFragmentArgs by navArgs()
+
     private var note: Note? = null
+
     private var isEditMode: Boolean = false
 
     lateinit var imm: InputMethodManager
@@ -37,24 +39,30 @@ class AddEditDetailsFragment : Fragment(R.layout.fragment_add_edit_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //if the user is opening the already saved note then show the content of the note to user
         note = args.note
         if (args.requestCode == HomeFragment.EDIT_NOTE_REQUEST_CODE) {
             et_content.setText(note?.content)
             isEditMode = true
         }
 
+
+        //Opening the softKeyboard for user to type the content
+
         et_content.requestFocus()
         imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(et_content, InputMethodManager.SHOW_IMPLICIT)
+
         setHasOptionsMenu(true)
 
     }
 
     override fun onStart() {
         super.onStart()
-        if (!isEditMode) {
 
-        }
+        //Opening the softKeyboard for user to type the content
+        Log.d(TAG, "onStart: ")
+
+        imm.showSoftInput(et_content, InputMethodManager.SHOW_IMPLICIT)
     }
 
 
@@ -62,6 +70,7 @@ class AddEditDetailsFragment : Fragment(R.layout.fragment_add_edit_details) {
         super.onStop()
         Log.d(TAG, "onStop: Fragment stopped")
 
+        //Hiding the keyboard when user leaves the fragment
         imm.hideSoftInputFromWindow(et_content.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
@@ -83,12 +92,13 @@ class AddEditDetailsFragment : Fragment(R.layout.fragment_add_edit_details) {
 
                 //Checking if the user is adding the note for the first time or updating the old note
                 if (!isEditMode) {
+                    //Inserting the note
                     if (noteString.isNotEmpty()) {
 
                         val note = Note(noteString.trim())
                         notesViewModel.insert(note)
 
-
+                        //Navigating back to the homeFragment
                         findNavController().navigate(action)
 
                     } else {
@@ -96,6 +106,7 @@ class AddEditDetailsFragment : Fragment(R.layout.fragment_add_edit_details) {
                             .show()
                     }
                 } else {
+                    //Updating the note
                     if (!note?.content.equals(noteString)) {
                         note?.let {
                             note?.content = ""
@@ -106,6 +117,7 @@ class AddEditDetailsFragment : Fragment(R.layout.fragment_add_edit_details) {
                         Log.d(TAG, "onOptionsItemSelected: No changes found in the note ")
                     }
 
+                    //Navigating back to the homeFragment
                     findNavController().navigate(action)
                 }
             }

@@ -17,6 +17,7 @@ import java.util.*
 class NoteAdapter(var context: Context?, var notes: ArrayList<Note>) :
     RecyclerView.Adapter<NoteAdapter.NoteHolder>() {
 
+    //Click interface to update or preview the note
     private lateinit var clickListener: OnItemClick
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteHolder {
@@ -28,6 +29,7 @@ class NoteAdapter(var context: Context?, var notes: ArrayList<Note>) :
         holder.contentView.text = notes[position].content
         holder.timeCreated.text = formatTimeCreated(notes[position].timeCreated)
 
+        //Swaping the card background(our card item has a background and a foreground to perform the swipeToDelete functionality
         if (position % 2 != 0) {
             holder.leftToRightBgView.visibility = View.VISIBLE
             holder.rightToLeftBgView.visibility = View.GONE
@@ -38,6 +40,7 @@ class NoteAdapter(var context: Context?, var notes: ArrayList<Note>) :
 
     }
 
+    //Formating the time
     private fun formatTimeCreated(timeCreated: Long): String? {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = timeCreated

@@ -19,6 +19,9 @@ interface NoteDao {
     @Query("DELETE FROM NOTES_TABLE ")
     suspend fun deleteAll()
 
+    //Make sure to use List not ArrayList in the return type
+    //Room does not allow or maybe does not support to use ArrayList
+    //So user List<T> instead if ArrayList<T>
     @Query("SELECT * FROM NOTES_TABLE ORDER BY primaryKey DESC")
     fun getAllNotes(): LiveData<List<Note>>
 }
